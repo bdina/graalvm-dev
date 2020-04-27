@@ -16,10 +16,11 @@ RUN gu install native-image \
  && yum install -y wget unzip libstdc++-static \
  && rm -rf /var/cache/yum \
  && wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp \
- && unzip -d /opt /tmp/gradle-${GRADLE_VERSION}-bin.zip
+ && unzip -d /opt /tmp/gradle-${GRADLE_VERSION}-bin.zip \
+ && rm /tmp/gradle-${GRADLE_VERSION}-bin.zip
 
-ENV GRADLE_HOME=/opt/gradle-${GRADLE_VERSION} \
-    PATH=${GRADLE_HOME}/bin:${PATH}
+ENV GRADLE_HOME=/opt/gradle-${GRADLE_VERSION}
+ENV PATH=${GRADLE_HOME}/bin:${PATH}
 
 WORKDIR /git/
 
