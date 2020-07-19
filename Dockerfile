@@ -8,8 +8,8 @@ ARG GRAALVM_WORKDIR=/graalvm/src/project
 # build (this is discarded by docker post-build)
 FROM oracle/graalvm-ce:${GRAALVM_VERSION}-java${JAVA_VERSION} AS build
 
-ARG SCALA_VERSION=2.13.2
-ARG GRADLE_VERSION=6.5
+ARG SCALA_VERSION=2.13.3
+ARG GRADLE_VERSION=6.5.1
 
 # Install tools required for project
 # Run `docker build --no-cache .` to update dependencies
