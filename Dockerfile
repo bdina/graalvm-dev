@@ -1,6 +1,6 @@
 # To build image run `docker build --tag graalvm-dev:<version> .`
 
-ARG GRAALVM_VERSION=20.1.0
+ARG GRAALVM_VERSION=20.2.0
 ARG JAVA_VERSION=11
 ARG GRAALVM_WORKDIR=/graalvm/src/project
 
@@ -9,7 +9,7 @@ ARG GRAALVM_WORKDIR=/graalvm/src/project
 FROM oracle/graalvm-ce:${GRAALVM_VERSION}-java${JAVA_VERSION} AS build
 
 ARG SCALA_VERSION=2.13.3
-ARG GRADLE_VERSION=6.5.1
+ARG GRADLE_VERSION=6.7
 
 # Install tools required for project
 # Run `docker build --no-cache .` to update dependencies
