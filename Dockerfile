@@ -6,7 +6,7 @@ ARG GRAALVM_WORKDIR=/graalvm/src/project
 
 # Multi-stage image ... creates intermediate layer(s) for doing the graalvm native
 # build (this is discarded by docker post-build)
-FROM oracle/graalvm-ce:${GRAALVM_VERSION}-java${JAVA_VERSION} AS build
+FROM ghcr.io/graalvm/graalvm-ce:ol7-java${JAVA_VERSION}-${GRAALVM_VERSION} AS build
 
 ARG SCALA_VERSION=2.13.4
 ARG GRADLE_VERSION=6.8.2
