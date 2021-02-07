@@ -6,7 +6,7 @@ ARG GRAALVM_WORKDIR=/graalvm/src/project
 
 # Multi-stage image ... creates intermediate layer(s) for doing the graalvm native
 # build (this is discarded by docker post-build)
-FROM ghcr.io/graalvm/graalvm-ce:ol7-java${JAVA_VERSION}-${GRAALVM_VERSION} AS build
+FROM ghcr.io/graalvm/graalvm-ce:ol8-java${JAVA_VERSION}-${GRAALVM_VERSION} AS build
 
 ARG SCALA_VERSION=2.13.4
 ARG GRADLE_VERSION=6.8.2
@@ -14,8 +14,8 @@ ARG GRADLE_VERSION=6.8.2
 # Install tools required for project
 # Run `docker build --no-cache .` to update dependencies
 RUN gu install native-image \
- && yum install -y wget unzip libstdc++-static \
- && rm -rf /var/cache/yum \
+ && microdnf install -y wget unzip libstdc++-static \
+ && microdnf clean all \
  && wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp \
  && unzip -d /opt /tmp/gradle-${GRADLE_VERSION}-bin.zip \
  && wget https://downloads.lightbend.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.tgz -P /tmp \
