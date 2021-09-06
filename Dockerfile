@@ -9,12 +9,13 @@ ARG GRAALVM_WORKDIR=/graalvm/src/project
 FROM ghcr.io/graalvm/graalvm-ce:ol8-java${JAVA_VERSION}-${GRAALVM_VERSION} AS build
 
 ARG SCALA_VERSION=2.13.6
-ARG GRADLE_VERSION=7.1.1
+ARG GRADLE_VERSION=7.2
 
 # Install tools required for project
 # Run `docker build --no-cache .` to update dependencies
 RUN gu install native-image \
- && microdnf install -y wget unzip libstdc++-static \
+ && microdnf update \
+ && microdnf install -y wget unzip libstdc++-static ncurses \
  && microdnf clean all \
  && wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp \
  && unzip -d /opt /tmp/gradle-${GRADLE_VERSION}-bin.zip \
