@@ -4,8 +4,8 @@
 # build (this is discarded by docker post-build)
 FROM ubuntu:20.04 AS build
 
-ARG GRAALVM_VERSION=21.2.0
-ARG JAVA_VERSION=16
+ARG GRAALVM_VERSION=21.3.0
+ARG JAVA_VERSION=17
 ARG GRAALVM_WORKDIR=/graalvm/src/project
 
 ARG SCALA_VERSION=2.13.6
