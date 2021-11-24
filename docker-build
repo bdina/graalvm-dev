@@ -1,5 +1,6 @@
 #!/bin/bash
 
-GIT_PROJECT=$1
+GIT_PROJECT="${PWD##*/}"
+TAG=${TAG:='latest'}
 
-sudo docker run --name ${GIT_PROJECT}-build-`date +"%s"` --network host -it --rm -v /home/bdina/git/${GIT_PROJECT}:/git/ graalvm-dev
+sudo docker run --name ${GIT_PROJECT}-build-`date +"%s"` --network host -it --rm -v $PWD:/git/${GIT_PROJECT}/ -w /git/${GIT_PROJECT} --memory="8g" graalvm-dev:${TAG}
