@@ -9,7 +9,7 @@ ARG JAVA_VERSION=11
 ARG GRAALVM_WORKDIR=/graalvm/src/project
 
 ARG SCALA_VERSION=2.13.7
-ARG GRADLE_VERSION=7.3
+ARG GRADLE_VERSION=7.3.3
 
 # Install tools required for project
 # Run `docker build --no-cache .` to update dependencies
