@@ -43,8 +43,6 @@ RUN ./configure --prefix=${TOOLCHAIN_DIR} --static \
  && make \
  && make install
 
-RUN rm -rf /tmp/*
-
 ENV GRADLE_HOME=/opt/gradle-${GRADLE_VERSION}
 ENV SCALA_HOME=/opt/scala-${SCALA_VERSION}
 ENV GRAALVM_HOME=/opt/graalvm-ce-java${JAVA_VERSION}-${GRAALVM_VERSION}
@@ -52,6 +50,8 @@ ENV JAVA_HOME=${GRAALVM_HOME}
 ENV PATH=${GRAALVM_HOME}/bin:${GRADLE_HOME}/bin:${SCALA_HOME}/bin:${PATH}
 
 RUN gu install native-image
+
+RUN rm -rf /tmp/*
 
 WORKDIR /git/
 
