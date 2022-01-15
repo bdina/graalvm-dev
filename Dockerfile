@@ -24,16 +24,17 @@ RUN apt-get update -y \
  && wget https://downloads.lightbend.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.tgz -P /tmp \
  && tar zxvf /tmp/scala-${SCALA_VERSION}.tgz -C /opt
 
-ARG MUSL_VERSION=x86_64
+ARG MUSL_VERSION=10.2.1
 ARG ZLIB_VERSION=1.2.11
 
-RUN wget http://musl.cc/${MUSL_VERSION}-linux-musl-native.tgz -P /tmp \
- && tar -zxvf /tmp/${MUSL_VERSION}-linux-musl-native.tgz -C /opt \
+RUN wget http://more.musl.cc/${MUSL_VERSION}/x86_64-linux-musl/x86_64-linux-musl-native.tgz -P /tmp \
+ && mkdir /opt/musl-${MUSL_VERSION} \
+ && tar -zxvf /tmp/x86_64-linux-musl-native.tgz -C /opt/musl-${MUSL_VERSION}/ \
  && wget https://zlib.net/zlib-${ZLIB_VERSION}.tar.gz -P /tmp \
  && tar -zxvf /tmp/zlib-${ZLIB_VERSION}.tar.gz -C /tmp
 
 # Build MUSL to static link into application
-ENV TOOLCHAIN_DIR=/opt/${MUSL_VERSION}-linux-musl-native
+ENV TOOLCHAIN_DIR=/opt/musl-${MUSL_VERSION}/x86_64-linux-musl-native
 
 ENV PATH=$PATH:${TOOLCHAIN_DIR}/bin
 ENV CC=$TOOLCHAIN_DIR/bin/gcc
