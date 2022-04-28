@@ -25,7 +25,7 @@ RUN apt-get update -y \
  && tar zxvf /tmp/scala-${SCALA_VERSION}.tgz -C /opt
 
 ARG MUSL_VERSION=10.2.1
-ARG ZLIB_VERSION=1.2.11
+ARG ZLIB_VERSION=1.2.12
 
 RUN wget http://more.musl.cc/${MUSL_VERSION}/x86_64-linux-musl/x86_64-linux-musl-native.tgz -P /tmp \
  && mkdir /opt/musl-${MUSL_VERSION} \
