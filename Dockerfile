@@ -6,7 +6,7 @@ FROM ubuntu:20.04 AS build
 
 ARG GRAALVM_VERSION=22.0.0.2
 ARG JAVA_VERSION=11
-ARG GRAALVM_WORKDIR=/graalvm/src/project
+ARG GRAALVM_WORKDIR=/git/
 
 ARG SCALA_VERSION=2.13.8
 ARG GRADLE_VERSION=7.3.3
@@ -54,6 +54,6 @@ RUN gu install native-image
 
 RUN rm -rf /tmp/*
 
-WORKDIR /git/
+WORKDIR ${GRAALVM_WORKDIR}
 
 CMD [ "/bin/bash" ]
