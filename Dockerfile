@@ -2,7 +2,7 @@
 
 # Multi-stage image ... creates intermediate layer(s) for doing the graalvm native
 # build (this is discarded by docker post-build)
-FROM ubuntu:20.04 AS build
+FROM ubuntu:22.04 AS build
 
 ARG GRAALVM_VERSION=22.1.0
 ARG JAVA_VERSION=11
