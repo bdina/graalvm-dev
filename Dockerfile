@@ -9,7 +9,7 @@ ARG JAVA_VERSION=17
 ARG GRAALVM_WORKDIR=/git/
 
 ARG SCALA_VERSION=2.13.8
-ARG GRADLE_VERSION=7.5
+ARG GRADLE_VERSION=7.5.1
 
 # Install tools required for project
 # Run `docker build --no-cache .` to update dependencies
