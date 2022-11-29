@@ -4,12 +4,12 @@
 # build (this is discarded by docker post-build)
 FROM ubuntu:22.04 AS build
 
-ARG GRAALVM_VERSION=22.2.0
-ARG JAVA_VERSION=17
+ARG GRAALVM_VERSION=22.3.0
+ARG JAVA_VERSION=19
 ARG GRAALVM_WORKDIR=/git/
 
 ARG SCALA_VERSION=2.13.10
-ARG GRADLE_VERSION=7.5.1
+ARG GRADLE_VERSION=7.6
 
 # Install tools required for project
 # Run `docker build --no-cache .` to update dependencies
@@ -25,7 +25,7 @@ RUN apt-get update -y \
  && tar zxvf /tmp/scala-${SCALA_VERSION}.tgz -C /opt
 
 ARG MUSL_VERSION=10.2.1
-ARG ZLIB_VERSION=1.2.12
+ARG ZLIB_VERSION=1.2.13
 
 RUN wget http://more.musl.cc/${MUSL_VERSION}/x86_64-linux-musl/x86_64-linux-musl-native.tgz -P /tmp \
  && mkdir /opt/musl-${MUSL_VERSION} \
