@@ -4,11 +4,11 @@
 # build (this is discarded by docker post-build)
 FROM ubuntu:22.04 AS build
 
-ARG GRAALVM_VERSION=22.3.1
-ARG JAVA_VERSION=19
+ARG GRAALVM_VERSION=22.3.2
+ARG JAVA_VERSION=17
 ARG GRAALVM_WORKDIR=/git/
 
-ARG SCALA_VERSION=2.13.10
+ARG SCALA_VERSION=2.13.11
 ARG GRADLE_VERSION=8.1.1
 
 # Install tools required for project
