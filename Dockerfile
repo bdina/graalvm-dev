@@ -11,6 +11,8 @@ ARG GRAALVM_WORKDIR=/git/
 ARG SCALA_VERSION=2.13.11
 ARG GRADLE_VERSION=8.1.1
 
+ARG SCALA_CLI_VERSION=1.0.1
+
 # Install tools required for project
 # Run `docker build --no-cache .` to update dependencies
 RUN apt-get update -y \
@@ -22,7 +24,11 @@ RUN apt-get update -y \
  && wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp \
  && unzip -d /opt /tmp/gradle-${GRADLE_VERSION}-bin.zip \
  && wget https://downloads.lightbend.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.tgz -P /tmp \
- && tar zxvf /tmp/scala-${SCALA_VERSION}.tgz -C /opt
+ && tar zxvf /tmp/scala-${SCALA_VERSION}.tgz -C /opt \
+ && wget https://github.com/Virtuslab/scala-cli/releases/download/v${SCALA_CLI_VERSION}/scala-cli-x86_64-pc-linux.gz -P /tmp \
+ && gunzip -c /tmp/scala-cli-x86_64-pc-linux.gz > /usr/local/bin/scala-cli \
+ && chmod +x /usr/local/bin/scala-cli
+
 
 ARG MUSL_VERSION=10.2.1
 ARG ZLIB_VERSION=1.2.13
