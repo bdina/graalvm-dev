@@ -4,8 +4,7 @@
 # build (this is discarded by docker post-build)
 FROM ubuntu:22.04 AS build
 
-ARG GRAALVM_VERSION=22.3.2
-ARG JAVA_VERSION=17
+ARG JAVA_VERSION=20.0.1
 ARG GRAALVM_WORKDIR=/git/
 
 ARG SCALA_VERSION=2.13.11
@@ -19,8 +18,9 @@ RUN apt-get update -y \
  && apt-get upgrade -y \
  && apt-get install -y wget unzip build-essential zlib1g-dev \
  && apt-get autoremove --purge -y \
- && wget https://github.com/graalvm/graalvm-ce-builds/releases/download/vm-${GRAALVM_VERSION}/graalvm-ce-java${JAVA_VERSION}-linux-amd64-${GRAALVM_VERSION}.tar.gz -P /tmp \
- && tar zxvf /tmp/graalvm-ce-java${JAVA_VERSION}-linux-amd64-${GRAALVM_VERSION}.tar.gz -C /opt \
+ && wget https://github.com/graalvm/graalvm-ce-builds/releases/download/jdk-${JAVA_VERSION}/graalvm-community-jdk-${JAVA_VERSION}_linux-x64_bin.tar.gz -P /tmp \
+ && mkdir -p /opt/graalvm-community-jdk-${JAVA_VERSION} \
+ && tar zxvf /tmp/graalvm-community-jdk-${JAVA_VERSION}_linux-x64_bin.tar.gz -C /opt/graalvm-community-jdk-${JAVA_VERSION} --strip-components 1 \
  && wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp \
  && unzip -d /opt /tmp/gradle-${GRADLE_VERSION}-bin.zip \
  && wget https://downloads.lightbend.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.tgz -P /tmp \
@@ -52,11 +52,8 @@ RUN ./configure --prefix=${TOOLCHAIN_DIR} --static \
 
 ENV GRADLE_HOME=/opt/gradle-${GRADLE_VERSION}
 ENV SCALA_HOME=/opt/scala-${SCALA_VERSION}
-ENV GRAALVM_HOME=/opt/graalvm-ce-java${JAVA_VERSION}-${GRAALVM_VERSION}
-ENV JAVA_HOME=${GRAALVM_HOME}
-ENV PATH=${GRAALVM_HOME}/bin:${GRADLE_HOME}/bin:${SCALA_HOME}/bin:${PATH}
-
-RUN gu install native-image
+ENV JAVA_HOME=/opt/graalvm-community-jdk-${JAVA_VERSION}
+ENV PATH=${JAVA_HOME}/bin:${GRADLE_HOME}/bin:${SCALA_HOME}/bin:${PATH}
 
 RUN rm -rf /tmp/*
 
