@@ -4,13 +4,13 @@
 # build (this is discarded by docker post-build)
 FROM ubuntu:22.04 AS build
 
-ARG JAVA_VERSION=21.0.1
+ARG JAVA_VERSION=21.0.2
 ARG GRAALVM_WORKDIR=/git/
 
 ARG SCALA_VERSION=2.13.12
 ARG GRADLE_VERSION=8.5
 
-ARG SCALA_CLI_VERSION=1.1.0
+ARG SCALA_CLI_VERSION=1.1.2
 
 # Install tools required for project
 # Run `docker build --no-cache .` to update dependencies
