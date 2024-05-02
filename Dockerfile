@@ -7,10 +7,10 @@ FROM ubuntu:22.04 AS build
 ARG JAVA_VERSION=22.0.1
 ARG GRAALVM_WORKDIR=/git/
 
-ARG SCALA_VERSION=2.13.13
+ARG SCALA_VERSION=2.13.14
 ARG GRADLE_VERSION=8.7
 
-ARG SCALA_CLI_VERSION=1.2.2
+ARG SCALA_CLI_VERSION=1.3.0
 
 # Install tools required for project
 # Run `docker build --no-cache .` to update dependencies
