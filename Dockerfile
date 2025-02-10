@@ -2,15 +2,15 @@
 
 # Multi-stage image ... creates intermediate layer(s) for doing the graalvm native
 # build (this is discarded by docker post-build)
-FROM ubuntu:22.04 AS build
+FROM ubuntu:24.04 AS build
 
-ARG JAVA_VERSION=22.0.1
+ARG JAVA_VERSION=23.0.2
 ARG GRAALVM_WORKDIR=/git/
 
-ARG SCALA_VERSION=2.13.14
-ARG GRADLE_VERSION=8.8
+ARG SCALA_VERSION=2.13.16
+ARG GRADLE_VERSION=8.12
 
-ARG SCALA_CLI_VERSION=1.3.2
+ARG SCALA_CLI_VERSION=1.6.1
 
 # Install tools required for project
 # Run `docker build --no-cache .` to update dependencies
