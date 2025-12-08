@@ -4,13 +4,13 @@
 # build (this is discarded by docker post-build)
 FROM ubuntu:24.04 AS build
 
-ARG JAVA_VERSION=24
+ARG JAVA_VERSION=25
 ARG GRAALVM_WORKDIR=/git/
 
-ARG SCALA_VERSION=2.13.16
-ARG GRADLE_VERSION=8.14.3
+ARG SCALA_VERSION=2.13.18
+ARG GRADLE_VERSION=9.2.1
 
-ARG SCALA_CLI_VERSION=1.8.3
+ARG SCALA_CLI_VERSION=1.10.1
 
 # Install tools required for project
 # Run `docker build --no-cache .` to update dependencies
@@ -23,7 +23,7 @@ RUN apt-get update -y \
  && tar zxvf /tmp/graalvm-jdk-${JAVA_VERSION}_linux-x64_bin.tar.gz -C /opt/graalvm-jdk-${JAVA_VERSION} --strip-components 1 \
  && wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp \
  && unzip -d /opt /tmp/gradle-${GRADLE_VERSION}-bin.zip \
- && wget https://downloads.lightbend.com/scala/${SCALA_VERSION}/scala-${SCALA_VERSION}.tgz -P /tmp \
+ && wget https://github.com/scala/scala/releases/download/v${SCALA_VERSION}/scala-${SCALA_VERSION}.tgz -P /tmp \
  && tar zxvf /tmp/scala-${SCALA_VERSION}.tgz -C /opt \
  && wget https://github.com/Virtuslab/scala-cli/releases/download/v${SCALA_CLI_VERSION}/scala-cli-x86_64-pc-linux.gz -P /tmp \
  && gunzip -c /tmp/scala-cli-x86_64-pc-linux.gz > /usr/local/bin/scala-cli \
