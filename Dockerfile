@@ -7,10 +7,10 @@ FROM ubuntu:24.04 AS build
 ARG JAVA_VERSION=25
 ARG GRAALVM_WORKDIR=/git/
 
-ARG SCALA_VERSION=2.13.18
-ARG GRADLE_VERSION=9.2.1
+ARG SCALA_VERSION=3.3.7
+ARG GRADLE_VERSION=9.3.1
 
-ARG SCALA_CLI_VERSION=1.10.1
+ARG SCALA_CLI_VERSION=1.12.1
 
 # Install tools required for project
 # Run `docker build --no-cache .` to update dependencies
@@ -23,8 +23,8 @@ RUN apt-get update -y \
  && tar zxvf /tmp/graalvm-jdk-${JAVA_VERSION}_linux-x64_bin.tar.gz -C /opt/graalvm-jdk-${JAVA_VERSION} --strip-components 1 \
  && wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp \
  && unzip -d /opt /tmp/gradle-${GRADLE_VERSION}-bin.zip \
- && wget https://github.com/scala/scala/releases/download/v${SCALA_VERSION}/scala-${SCALA_VERSION}.tgz -P /tmp \
- && tar zxvf /tmp/scala-${SCALA_VERSION}.tgz -C /opt \
+ && wget https://github.com/scala/scala3/releases/download/${SCALA_VERSION}/scala3-${SCALA_VERSION}.tar.gz -P /tmp \
+ && tar zxvf /tmp/scala3-${SCALA_VERSION}.tar.gz -C /opt \
  && wget https://github.com/Virtuslab/scala-cli/releases/download/v${SCALA_CLI_VERSION}/scala-cli-x86_64-pc-linux.gz -P /tmp \
  && gunzip -c /tmp/scala-cli-x86_64-pc-linux.gz > /usr/local/bin/scala-cli \
  && chmod +x /usr/local/bin/scala-cli
@@ -51,7 +51,7 @@ RUN ./configure --prefix=${TOOLCHAIN_DIR} --static \
  && make install
 
 ENV GRADLE_HOME=/opt/gradle-${GRADLE_VERSION}
-ENV SCALA_HOME=/opt/scala-${SCALA_VERSION}
+ENV SCALA_HOME=/opt/scala3-${SCALA_VERSION}
 ENV JAVA_HOME=/opt/graalvm-jdk-${JAVA_VERSION}
 ENV GRAALVM_HOME=/opt/graalvm-jdk-${JAVA_VERSION}
 ENV PATH=${JAVA_HOME}/bin:${GRADLE_HOME}/bin:${SCALA_HOME}/bin:${PATH}
