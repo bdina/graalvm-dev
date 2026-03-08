@@ -30,8 +30,8 @@ RUN apt-get update -y \
  && chmod +x /usr/local/bin/scala-cli
 
 
-ARG MUSL_VERSION=10
-ARG ZLIB_VERSION=1.3.1
+ARG MUSL_VERSION=11.2.1
+ARG ZLIB_VERSION=1.3.2
 
 RUN wget http://more.musl.cc/${MUSL_VERSION}/x86_64-linux-musl/x86_64-linux-musl-native.tgz -P /tmp \
  && mkdir /opt/musl-${MUSL_VERSION} \
