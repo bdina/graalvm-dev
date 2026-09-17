@@ -4,6 +4,7 @@
 # build (this is discarded by docker post-build)
 FROM ubuntu:24.04 AS build
 
+ARG GRAAL_VERSION=25i3
 ARG JAVA_VERSION=25
 ARG GRAALVM_WORKDIR=/git/
 
@@ -18,9 +19,9 @@ RUN apt-get update -y \
  && apt-get upgrade -y \
  && apt-get install -y wget unzip build-essential zlib1g-dev \
  && apt-get autoremove --purge -y \
- && wget https://download.oracle.com/graalvm/${JAVA_VERSION}/latest/graalvm-jdk-${JAVA_VERSION}_linux-x64_bin.tar.gz -P /tmp \
+ && wget https://gds.oracle.com/download/graal/${GRAAL_VERSION}/latest/graalvm-jdk-${GRAAL_VERSION}-${JAVA_VERSION}_linux-x64_bin.tar.gz -P /tmp \
  && mkdir -p /opt/graalvm-jdk-${JAVA_VERSION} \
- && tar zxvf /tmp/graalvm-jdk-${JAVA_VERSION}_linux-x64_bin.tar.gz -C /opt/graalvm-jdk-${JAVA_VERSION} --strip-components 1 \
+ && tar zxvf /tmp/graalvm-jdk-${GRAAL_VERSION}-${JAVA_VERSION}_linux-x64_bin.tar.gz -C /opt/graalvm-jdk-${JAVA_VERSION} --strip-components 1 \
  && wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp \
  && unzip -d /opt /tmp/gradle-${GRADLE_VERSION}-bin.zip \
  && wget https://github.com/scala/scala3/releases/download/${SCALA_VERSION}/scala3-${SCALA_VERSION}.tar.gz -P /tmp \
