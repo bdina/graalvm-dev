@@ -2,16 +2,16 @@
 
 # Multi-stage image ... creates intermediate layer(s) for doing the graalvm native
 # build (this is discarded by docker post-build)
-FROM ubuntu:24.04 AS build
+FROM ubuntu:26.04 AS build
 
-ARG GRAAL_VERSION=25i3
+ARG GRAAL_VERSION=25i6
 ARG JAVA_VERSION=25
 ARG GRAALVM_WORKDIR=/git/
 
-ARG SCALA_VERSION=3.3.7
-ARG GRADLE_VERSION=9.3.1
+ARG SCALA_VERSION=3.9.0
+ARG GRADLE_VERSION=9.9.2
 
-ARG SCALA_CLI_VERSION=1.12.1
+ARG SCALA_CLI_VERSION=1.19.0
 
 # Install tools required for project
 # Run `docker build --no-cache .` to update dependencies
@@ -32,7 +32,7 @@ RUN apt-get update -y \
 
 
 ARG MUSL_VERSION=11.2.1
-ARG ZLIB_VERSION=1.3.2
+ARG ZLIB_VERSION=1.4
 
 RUN wget http://more.musl.cc/${MUSL_VERSION}/x86_64-linux-musl/x86_64-linux-musl-native.tgz -P /tmp \
  && mkdir /opt/musl-${MUSL_VERSION} \
