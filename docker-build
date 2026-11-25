@@ -1,6 +1,30 @@
-#!/bin/bash
+#!/usr/bin/env bash
+set -euo pipefail
 
 GIT_PROJECT="${PWD##*/}"
-TAG=${TAG:='latest'}
+TAG="${TAG:-latest}"
+MEMORY="${MEMORY:-8g}"
 
-sudo docker run --name ${GIT_PROJECT}-build-`date +"%s"` --network host -it --rm -v $PWD:/git/${GIT_PROJECT}/ -w /git/${GIT_PROJECT} --memory="8g" graalvm-dev:${TAG}
+if [[ -n "${DOCKER:-}" ]]; then
+  read -ra DOCKER_CMD <<< "${DOCKER}"
+elif docker info >/dev/null 2>&1; then
+  DOCKER_CMD=(docker)
+else
+  DOCKER_CMD=(sudo docker)
+fi
+
+TTY_FLAGS=(-i)
+if [[ -t 0 && -t 1 ]]; then
+  TTY_FLAGS+=(-t)
+fi
+
+exec "${DOCKER_CMD[@]}" run \
+  --name "${GIT_PROJECT}-build-$(date +"%s")" \
+  --network host \
+  "${TTY_FLAGS[@]}" \
+  --rm \
+  -v "${PWD}:/git/${GIT_PROJECT}/" \
+  -w "/git/${GIT_PROJECT}" \
+  --memory="${MEMORY}" \
+  "graalvm-dev:${TAG}" \
+  "$@"
